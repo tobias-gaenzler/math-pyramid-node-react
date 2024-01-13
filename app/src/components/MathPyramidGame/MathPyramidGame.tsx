@@ -24,7 +24,7 @@ const MathPyramidGame: React.FC = () => {
         console.log(`Received message: ${message}`)
         setSolvedBy(JSON.parse(message).sender)
       } else {
-        console.log("Game started, received new model")
+        console.log(`[${new Date().toISOString()}]: Game started, received new model`)
         const newModel = new Model(JSON.parse(message) as MathPyramidModelData)
         setModel(newModel)
         setSolvedBy("")

@@ -19,7 +19,7 @@ describe("testing ConfigService", () => {
     expect(t).toThrow(Error)
   })
   test("should return default values if no environment is present", () => {
-    expect(ConfigService.getConfig("WS_URL")).toEqual("ws://127.0.0.1:3002")
+    expect(ConfigService.getConfig("WS_URL")).toEqual("ws://localhost:3000")
     expect(ConfigService.getConfig("PYRAMID_SIZE")).toEqual("3")
     expect(ConfigService.getConfig("MAX_VALUE")).toEqual("100")
   })

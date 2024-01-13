@@ -41,12 +41,14 @@ const WebSocketContextProvider = (props: { children?: ReactNode }) => {
         shouldReconnect: () => true,
     })
 
-    const sendRestartMessage = () =>
+    const sendRestartMessage = () => {
+        console.log(`[${new Date().toISOString()}]: sending restart message`)
         sendJsonMessage({
             action: "start",
             sender: userName,
             data: { size: PYRAMID_SIZE, maxValue: MAX_VALUE },
         })
+    }
     const sendSolvedMessage = () => sendJsonMessage({
         action: "message",
         sender: userName,

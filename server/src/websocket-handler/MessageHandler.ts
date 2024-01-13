@@ -17,7 +17,7 @@ export class MessageHandler {
         const data = JSON.parse(rawMessage.data.toString())
         const dataAsJson = JSON.stringify(rawMessage.data)
         const userName = this.userManager.getUser(ws)?.name
-        console.log(`Received message: ${dataAsJson} from ${userName}`)
+        console.log(`[${new Date().toISOString()}]: Received message: ${dataAsJson} from ${userName}`)
 
         switch (data.action) {
             case "username": {

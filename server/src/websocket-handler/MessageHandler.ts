@@ -38,6 +38,7 @@ export class MessageHandler {
                 this.expressWebSocketServer.getWss().clients.forEach(function (client) {
                     client.send(JSON.stringify(data))
                 })
+                break
             }
             default: {
                 throw new Error(`Received unknown event: ${data.action}`)

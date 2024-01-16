@@ -4,11 +4,11 @@ import { expect, jest, test } from '@jest/globals';
 import type ws from 'ws';
 
 jest.mock('ws');
-var mockedWs: jest.MockedObject<ws>;
+let mockedWs: jest.MockedObject<ws>;
 
 describe('CloseHandler', () => {
-    var userManager: UserManager;
-    var closeHandler: CloseHandler;
+    let userManager: UserManager;
+    let closeHandler: CloseHandler;
 
     beforeEach(() => {
         userManager = new UserManager();

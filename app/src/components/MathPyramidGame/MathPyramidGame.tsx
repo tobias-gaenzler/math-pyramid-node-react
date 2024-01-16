@@ -13,6 +13,8 @@ const MathPyramidGame: React.FC = () => {
   const { userName } = useUserNameContext()
   const [model, setModel] = useState<Model | null>(null)
   const [solvedBy, setSolvedBy] = useState<string>("")
+  const [startTime, setStartTime] = useState<number>(0)
+  const [solveTime, setSolveTime] = useState<number>(0)
   const { sendSolvedMessage, lastJsonMessage, sendRestart, showErrorMessage, setShowErrorMessage } = useWebSocketContext()
 
   useEffect(() => {
@@ -23,11 +25,15 @@ const MathPyramidGame: React.FC = () => {
       if (message.includes("\"action\":\"message\"")) {
         console.log(`Received message: ${message}`)
         setSolvedBy(JSON.parse(message).sender)
+        setStartTime(0)
+        setSolveTime(JSON.parse(message).solveTime)
       } else {
         console.log(`[${new Date().toISOString()}]: Game started, received new model`)
         const newModel = new Model(JSON.parse(message) as MathPyramidModelData)
         setModel(newModel)
         setSolvedBy("")
+        setStartTime(new Date().getTime())
+        setSolveTime(0)
       }
     }
   }, [lastJsonMessage, setShowErrorMessage])
@@ -39,7 +45,8 @@ const MathPyramidGame: React.FC = () => {
     if (model?.solutionValues && model.solutionValues[index]?.toString() === inputValue) {
       model.userInput[index] = parseInt(inputValue)
       if (model.isSolved()) {
-        sendSolvedMessage()
+        const solveTime = (new Date().getTime() - startTime)
+        sendSolvedMessage(solveTime)
       }
     }
   }
@@ -51,6 +58,7 @@ const MathPyramidGame: React.FC = () => {
   const closePopup = () => {
     setSolvedBy("")
     setModel(null)
+    setStartTime(0)
   }
 
   return showErrorMessage ?
@@ -61,6 +69,7 @@ const MathPyramidGame: React.FC = () => {
         onClose={closePopup}
         solvedBy={solvedBy}
         userName={userName}
+        solveTime={solveTime}
       />
       <Button color="primary" variant="contained" onClick={restart}>
         {model == null ? "Start" : "Restart"}

@@ -9,7 +9,7 @@ const PYRAMID_SIZE: string = ConfigService.getConfig("PYRAMID_SIZE")
 const MAX_VALUE: string = ConfigService.getConfig("MAX_VALUE")
 
 export interface WebSocketContextState {
-    sendSolvedMessage: () => void;
+    sendSolvedMessage: (solveTime: number) => void;
     lastJsonMessage: string;
     sendRestart: () => void;
     showErrorMessage: boolean;
@@ -49,9 +49,10 @@ const WebSocketContextProvider = (props: { children?: ReactNode }) => {
             data: { size: PYRAMID_SIZE, maxValue: MAX_VALUE },
         })
     }
-    const sendSolvedMessage = () => sendJsonMessage({
+    const sendSolvedMessage = (solveTime: number) => sendJsonMessage({
         action: "message",
         sender: userName,
+        solveTime: solveTime,
         payload: `Pyramid solved by: ${userName}`,
     })
 

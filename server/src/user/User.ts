@@ -2,10 +2,7 @@ export class User {
     constructor(
         public id: string,
         private _name: string
-    ) {
-        this.id = id;
-        this._name = _name;
-    }
+    ) { };
     public get name(): string {
         if (this._name) {
             return this._name;
@@ -15,9 +12,9 @@ export class User {
     }
     public set name(name: string) {
         this._name = name;
-    }
+    }   
 
-    toString(): string {
-        return `Name: ${this.name}, ID: ${this.id}`;
+    public toString(): string {
+        return `Name: ${this._name}, ID: ${this.id}`;
     }
 }

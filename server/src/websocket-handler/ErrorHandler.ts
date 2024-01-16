@@ -8,7 +8,6 @@ export class ErrorHandler {
         this.userManager = userManager;
     }
 
-
     handleError(ws: ws, error: Error): void {
         const user = this.userManager.getUser(ws);
         console.error(`Deleting user ${user?.toString()} on error ${error}`);

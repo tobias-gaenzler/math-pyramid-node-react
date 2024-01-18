@@ -1,6 +1,7 @@
 .DS_STORE
 node_modules
 dist
+index.js
 server/dist/index.js
 scripts/flow/*/.flowconfig
 .flowconfig

@@ -14,12 +14,12 @@ export class MathPyramidSolver {
         return bottomValues;
     }
 
-    isNotSolvable(startValues: Map<number, number>, size: number) {
+    isSolvable(startValues: Map<number, number>, size: number): boolean {
         const difficulty = this.getDifficulty(new Set(startValues.keys()), size);
-        return difficulty === 1 || difficulty === null;
+        return (difficulty === 0);
     }
 
-    getDifficulty(startPositions: Set<number>, size: number): number | null {
+    private getDifficulty(startPositions: Set<number>, size: number): number | null {
         if (!this.isUniquelySolvable(startPositions, size)) {
             return null;
         }
@@ -31,7 +31,7 @@ export class MathPyramidSolver {
         return calculatablePositions.size < this.getNumberOfBlocks(size) ? 1 : 0;
     }
 
-    private addCurrentCalculatablePositions(calculatablePositions: Set<number>, size: number) {
+    private addCurrentCalculatablePositions(calculatablePositions: Set<number>, size: number): void {
         for (let row = 0; row < size - 1; row++) {
             for (let column = 0; column < size - row; column++) {
                 if (column + 1 < size - row) {
@@ -60,7 +60,7 @@ export class MathPyramidSolver {
         }
     }
 
-    private getIndex(rowId: number, colId: number, size: number) {
+    private getIndex(rowId: number, colId: number, size: number): number {
         // starting in bottom row left, e.g. for pyramid of size 3:
         // 0 0 -> 0
         // 0 1 -> 1
@@ -79,7 +79,7 @@ export class MathPyramidSolver {
         return index + colId;
     }
 
-    private checkDimensions(rowId: number, colId: number, size: number) {
+    private checkDimensions(rowId: number, colId: number, size: number): void {
         let message = '';
         if (rowId < 0 || rowId >= size) {
             message += `rowId ${rowId} must be non-negative and smaller than the size of the pyramid ${size}`;

@@ -1,7 +1,7 @@
 import { UserManager } from '../user/UserManager';
 import ws from 'ws';
 import { Instance } from 'express-ws';
-import { MathPyramidFactory } from '../math-pyramid/math-pyramid-factory';
+import { MathPyramidFactory } from '../math-pyramid/MathPyramidFactory';
 
 const mathPyramidFactory = new MathPyramidFactory();
 

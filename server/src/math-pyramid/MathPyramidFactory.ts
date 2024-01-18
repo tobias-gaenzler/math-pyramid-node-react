@@ -1,4 +1,4 @@
-import { MathPyramidSolver } from './math-pyramid-solver';
+import { MathPyramidSolver } from './MathPyramidSolver';
 
 export interface MathPyramidModelData {
     size: number
@@ -42,7 +42,7 @@ export class MathPyramidFactory {
         let tries: number = 1;
         const maxIterations: number = 250;
         const solver: MathPyramidSolver = new MathPyramidSolver();
-        while (solver.isNotSolvable(startValues, size) && tries <= maxIterations) {
+        while (!solver.isSolvable(startValues, size) && tries <= maxIterations) {
             startValues = this.getRandomStartValues(solutionValues);
             tries++;
         }

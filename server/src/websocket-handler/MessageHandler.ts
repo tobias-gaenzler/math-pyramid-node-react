@@ -1,14 +1,14 @@
 import { UserManager } from '../user/UserManager';
 import ws from 'ws';
-import expressWs from 'express-ws';
+import { Instance } from 'express-ws';
 import { MathPyramidFactory } from '../math-pyramid/math-pyramid-factory';
 
 const mathPyramidFactory = new MathPyramidFactory();
 
 export class MessageHandler {
     private userManager: UserManager;
-    private expressWebSocketServer: expressWs.Instance;
-    constructor(userManager: UserManager, expressWebSocketServer: expressWs.Instance) {
+    private expressWebSocketServer: Instance;
+    constructor(userManager: UserManager, expressWebSocketServer: Instance) {
         this.userManager = userManager;
         this.expressWebSocketServer = expressWebSocketServer;
     }

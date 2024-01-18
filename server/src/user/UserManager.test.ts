@@ -1,5 +1,4 @@
 import { UserManager } from './UserManager';
-import { User } from './User';
 import ws from 'ws';
 
 describe('UserManager', () => {

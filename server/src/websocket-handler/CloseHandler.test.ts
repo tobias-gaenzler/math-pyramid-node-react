@@ -3,10 +3,9 @@ import { UserManager } from '../user/UserManager';
 import { expect, jest, test } from '@jest/globals';
 import type ws from 'ws';
 
-jest.mock('ws');
-let mockedWs: jest.MockedObject<ws>;
 
 describe('CloseHandler', () => {
+    let mockedWs: jest.MockedObject<ws>;
     let userManager: UserManager;
     let closeHandler: CloseHandler;
 

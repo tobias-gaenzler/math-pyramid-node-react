@@ -2,7 +2,7 @@ export class User {
     constructor(
         public id: string,
         private _name: string
-    ) { };
+    ) { }
     public get name(): string {
         if (this._name) {
             return this._name;

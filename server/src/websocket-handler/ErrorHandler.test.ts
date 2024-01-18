@@ -3,16 +3,18 @@ import { UserManager } from '../user/UserManager';
 import { expect, jest, test } from '@jest/globals';
 import type ws from 'ws';
 
-jest.mock('ws');
-let mockedWs: jest.MockedObject<ws>;
-
 describe('ErrorHandler', () => {
+    let mockedWs: jest.MockedObject<ws>;
     let userManager: UserManager;
     let closeHandler: ErrorHandler;
 
     beforeEach(() => {
         userManager = new UserManager();
         closeHandler = new ErrorHandler(userManager);
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
     });
 
     test('handleClose should delete user', () => {

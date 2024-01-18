@@ -5,7 +5,7 @@ export interface MathPyramidModelData {
     solutionValues: number[]
     startValues: Array<number | null>
 }
-interface MathPyramidRequestData {
+export interface MathPyramidRequestData {
     size: string
     maxValue: string
 }

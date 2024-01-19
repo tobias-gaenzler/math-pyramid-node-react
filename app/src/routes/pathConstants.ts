@@ -1,6 +1,7 @@
 const PathConstants = {
     PLAY: "/",
-    HELP: "/help"
+    HELP: "/help",
+    CONFIG: "/config"
 }
 
 export default PathConstants

@@ -8,6 +8,7 @@ import {
 } from "@mui/material"
 import { Link as RouterLink } from "react-router-dom"
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
+import SettinsOutlined from "@mui/icons-material/SettingsOutlined"
 import PathConstants from "../../routes/pathConstants"
 import { UserName } from "../UserName/UserName"
 import PlayCircleOutlineOutlinedIcon from "@mui/icons-material/PlayCircleOutlineOutlined"
@@ -40,13 +41,21 @@ const Header: React.FC = () => (
             </div>
             <IconButton
                 component={UserName}
-                size="large"
+                size="medium"
                 color="inherit"
             />
             <IconButton
                 component={RouterLink}
+                to={PathConstants.CONFIG}
+                size="medium"
+                color="inherit"
+            >
+                <SettinsOutlined />
+            </IconButton>
+            <IconButton
+                component={RouterLink}
                 to={PathConstants.HELP}
-                size="large"
+                size="medium"
                 color="inherit"
             >
                 <HelpOutlineIcon />

@@ -70,8 +70,13 @@ const MathPyramidField: React.FC<Props> = ({
       data-testid={`field${index}`}
       inputProps={{ type: "number" }}
       onKeyDown={(event) => {
-        // allow only numbers and Backspace
-        if (!/[0-9]/.test(event.key) && !/Backspace/.test(event.key)) {
+        // allow only numbers, Backspace and Tab and arrow
+        if (!/[0-9]/.test(event.key)
+          && !/Backspace/.test(event.key)
+          && ! /Tab/.test(event.key)
+          && ! /ArrowLeft/.test(event.key)
+          && ! /ArrowRight/.test(event.key)
+        ) {
           event.preventDefault()
         }
       }}

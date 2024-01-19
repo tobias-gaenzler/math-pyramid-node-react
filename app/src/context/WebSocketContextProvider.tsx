@@ -2,11 +2,11 @@ import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useStat
 import { useUserNameContext } from "./UserNameContextProvider"
 import useWebSocket from "react-use-websocket"
 import { ConfigService } from "../service/ConfigService"
+import { useGameConfigContext } from "./GameConfigContextProvider"
 
 
 const WS_URL: string = ConfigService.getConfig("WS_URL")
-const PYRAMID_SIZE: string = ConfigService.getConfig("PYRAMID_SIZE")
-const MAX_VALUE: string = ConfigService.getConfig("MAX_VALUE")
+
 
 export interface WebSocketContextState {
     sendSolvedMessage: (solveTime: number) => void;
@@ -25,6 +25,7 @@ export const useWebSocketContext = () => useContext(WebSocketContext)
 const WebSocketContextProvider = (props: { children?: ReactNode }) => {
     const { userName } = useUserNameContext()
     const [showErrorMessage, setShowErrorMessage] = useState(false)
+    const { size, maxValue } = useGameConfigContext()
     const { sendJsonMessage, lastJsonMessage } = useWebSocket<string>(WS_URL, {
         onOpen: () => {
             console.log("WebSocket connection established")
@@ -46,7 +47,7 @@ const WebSocketContextProvider = (props: { children?: ReactNode }) => {
         sendJsonMessage({
             action: "start",
             sender: userName,
-            data: { size: PYRAMID_SIZE, maxValue: MAX_VALUE },
+            data: { size: size, maxValue: maxValue },
         })
     }
     const sendSolvedMessage = (solveTime: number) => sendJsonMessage({

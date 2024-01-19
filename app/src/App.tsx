@@ -5,6 +5,7 @@ import WebSocketContextProvider from "./context/WebSocketContextProvider"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import MainLayout from "./components/MainLayout/MainLayout"
 import routes from "./routes"
+import GameConfigContextProvider from "./context/GameConfigContextProvider"
 
 const router = createBrowserRouter([
   {
@@ -16,11 +17,13 @@ const router = createBrowserRouter([
 
 function App(): ReactElement<object, JSXElementConstructor<object>> {
   return (
-    <UserNameContextProvider>
-      <WebSocketContextProvider>
-        <RouterProvider router={router} />
-      </WebSocketContextProvider>
-    </UserNameContextProvider>
+    <GameConfigContextProvider>
+      <UserNameContextProvider>
+        <WebSocketContextProvider>
+          <RouterProvider router={router} />
+        </WebSocketContextProvider>
+      </UserNameContextProvider>
+    </GameConfigContextProvider>
   )
 }
 export default App

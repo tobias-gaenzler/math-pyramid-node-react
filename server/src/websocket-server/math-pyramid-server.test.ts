@@ -1,28 +1,49 @@
-// import { MathPyramidServer } from "./math-pyramid-server";
+import { MathPyramidModelData } from '../math-pyramid/MathPyramidFactory';
+import { MathPyramidServer } from './math-pyramid-server';
+import { MathPyramidWebsocketClient } from './websocket-test-utils';
 
-// const port = 3010;
 
-// describe("MathPyramidServer", () => {
-//   let server: MathPyramidServer;
+const port = '3010';
 
-//   beforeAll(async () => {
-//     server = await startServer(port);
-//   });
+describe('MathPyramidServer', () => {
+    let server: MathPyramidServer;
+    let webServerClient: MathPyramidWebsocketClient;
 
-//   afterAll(() => server.close());
+    beforeAll(async () => {
+        server = new MathPyramidServer();
+        await server.start(port);
+        webServerClient = new MathPyramidWebsocketClient();
+    });
 
-//   test("Server echoes the message it receives from client", async () => {
-//     // Create test client
-//     const [client, messages] = await createSocketClient(port, 1);
-//     const testMessage = "This is a test message";
+    afterAll(async () => {
+        server.stop();
+    });
 
-//     // Send client message
-//     client.send(testMessage);
+    test('Server forwards message to all clients', async () => {
+        const [client, messages] = await webServerClient.createSocketClient(port);
+        const testMessage = '{"action":"message","sender":"username","data":"message"}';
 
-//     // Perform assertions on the response
-//     await waitForSocketState(client, client.CLOSED);
+        client.send(testMessage);
+        client.close();
+        await webServerClient.waitForSocketState(client, client.CLOSED);
 
-//     const [responseMessage] = messages;
-//     expect(responseMessage).toBe(testMessage);
-//   });
-// });
+        const [responseMessage] = messages;
+        expect(responseMessage).toBe(testMessage);
+    });
+
+    test('Server returns math pyramid data on start game action', async () => {
+        const [client, messages] = await webServerClient.createSocketClient(port);
+        const testMessage = '{ "action": "start", "sender":"username", "data": { "size":"3", "maxValue": "100"}}';
+
+        client.send(testMessage);
+        client.close();
+        await webServerClient.waitForSocketState(client, client.CLOSED);
+
+        expect(messages.length).toBe(1);
+        const [responseMessage] = messages;
+        const model = JSON.parse(responseMessage) as MathPyramidModelData;
+        expect(model.size).toBe(3);
+        expect(model.startValues.length).toBe(6);
+        expect(model.solutionValues.length).toBe(6);
+    });
+});

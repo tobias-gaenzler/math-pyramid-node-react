@@ -1,7 +1,7 @@
 import { MathPyramidSolver } from './MathPyramidSolver';
 
 describe('MathPyramidSolver', () => {
-    let solver: MathPyramidSolver = new MathPyramidSolver();
+    const solver: MathPyramidSolver = new MathPyramidSolver();
 
     test('isSolvable should return true for solvable pyramid', () => {
         // Arrange

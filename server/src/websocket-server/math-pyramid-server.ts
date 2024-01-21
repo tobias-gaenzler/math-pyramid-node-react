@@ -1,12 +1,13 @@
-import express from "express";
-import expressWs from "express-ws";
-import path from "path";
+import express from 'express';
+import expressWs from 'express-ws';
+import path from 'path';
 import ws from 'ws';
-import { v4 } from "uuid";
-import { UserManager } from "../user/UserManager";
-import { CloseHandler } from "../websocket-handler/CloseHandler";
-import { ErrorHandler } from "../websocket-handler/ErrorHandler";
-import { MessageHandler } from "../websocket-handler/MessageHandler";
+import { v4 } from 'uuid';
+import { UserManager } from '../user/UserManager';
+import { CloseHandler } from '../websocket-handler/CloseHandler';
+import { ErrorHandler } from '../websocket-handler/ErrorHandler';
+import { MessageHandler } from '../websocket-handler/MessageHandler';
+import { IncomingMessage, Server, ServerResponse } from 'node:http';
 
 export class MathPyramidServer {
     private server: expressWs.Application;
@@ -14,6 +15,7 @@ export class MathPyramidServer {
     private closeHandler: CloseHandler;
     private errorHandler: ErrorHandler;
     private messageHandler: MessageHandler;
+    private httpServer: Server<typeof IncomingMessage, typeof ServerResponse> | undefined;
 
     constructor() {
         const expressWebSocketServer = expressWs(express());
@@ -45,13 +47,20 @@ export class MathPyramidServer {
         });
     }
 
-    start(port: string): Promise<void> {
+    start(port: string): Promise<Server<typeof IncomingMessage, typeof ServerResponse>> {
         return new Promise((resolve) => {
-            this.server.listen(port, () => {
-                console.log(`[server]: Server is running at http://localhost:${port}`);
-                resolve();
+            this.httpServer = this.server.listen(port, () => {
+                console.log(`Server is running at http://localhost:${port}`);
             });
+            resolve(this.httpServer);
         });
+    }
+    stop() {
+        this.server.removeAllListeners();
+        if (this.httpServer) {
+            this.httpServer.removeAllListeners();
+            this.httpServer.close();
+        }
     }
 
     private serveStaticReactApp() {

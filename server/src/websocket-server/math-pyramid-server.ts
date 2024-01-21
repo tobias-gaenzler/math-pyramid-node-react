@@ -45,9 +45,12 @@ export class MathPyramidServer {
         });
     }
 
-    listen(port: string) {
-        this.server.listen(port, () => {
-            console.log(`[server]: Server is running at http://localhost:${port}`);
+    start(port: string): Promise<void> {
+        return new Promise((resolve) => {
+            this.server.listen(port, () => {
+                console.log(`[server]: Server is running at http://localhost:${port}`);
+                resolve();
+            });
         });
     }
 

@@ -20,7 +20,8 @@ Frontend (react) and backend (node.js) are implemented in typescript.
 
 ### Deployment
 
-During deployment the websocket connection needs to be set e.g. when the app is build:
+Node.js server provides websocket server and statically serves the frontend.
+During deployment the websocket connection for the frontend to connect to the backend needs to be set e.g. when the app is build:
 
 ```
 REACT_APP_WS_URL=wss://<IP>:<PORT> npm run build

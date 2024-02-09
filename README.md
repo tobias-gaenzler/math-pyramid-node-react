@@ -10,12 +10,13 @@ Node.js serverside code including websocket server is located in *server* folder
 
 ### Typescript
 
-The application is implemented in typescript and uses node.js as a backend.
+Frontend (react) and backend (node.js) are implemented in typescript.
 
 ### Local Development
 
-- build app: cd app && npm install && npm run build
-- start server: cd server && npm install && npm run dev
+- build frontend app: *cd app && npm install && npm run build*
+- start frontend app: *cd app && npm run start*
+- start backend server: *cd server && npm install && npm run dev*
 
 ### Deployment
 

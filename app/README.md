@@ -14,8 +14,8 @@ The application is implemented in typescript and uses node.js as a backend.
 
 ### Local Development
 
-- build app: *cd app && npm install && npm run build
-- start server: *cd server && npm install && npm run dev
+- build app: cd app && npm install && npm run build
+- start server: cd server && npm install && npm run dev
 
 ### Deployment
 

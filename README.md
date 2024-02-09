@@ -1,7 +1,7 @@
 # Math Pyramid Multiplayer (node/react)
 
-![Math Pyramid](https://github.com/tobias-gaenzler/math-pyramid-react/blob/main/public/help_start.jpg?raw=true)
 React app for math pyramid, a math exercise to train basic addition/subtraction.
+![Math Pyramid](https://github.com/tobias-gaenzler/math-pyramid-react/blob/main/public/help_start.jpg?raw=true)
 
 ## Technical Information
 
